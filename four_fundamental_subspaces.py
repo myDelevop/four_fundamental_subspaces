@@ -74,5 +74,11 @@ if __name__ == '__main__':
         matrix_computation["four_subspaces"]["Range_AT"]["span"].append(row_idx)
         matrix_computation["four_subspaces"]["NULL_A"]["span"] = A.nullspace()
 
+    if rank_a <= m:
+        np_matrix = np.array(id_rref)  # np_matrix is the numpy matrix of sympy
+        matrix_computation["four_subspaces"]["NULL_AT"]["span"] = np_matrix[-(m - rank_a):].tolist()
+    else:
+        matrix_computation["four_subspaces"]["NULL_AT"]["span"] = [0] * m
+
 
 
