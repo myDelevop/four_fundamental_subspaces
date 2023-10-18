@@ -16,5 +16,8 @@ if __name__ == '__main__':
     # number of pivotal elements in Matrix A
     rank_a = A.rank()
 
-    # Create an identity matrix of size m
+    # Create an identity matrix of size m (num of rows)
     identity = eye(m)
+
+    # Create the augmented matrix [A|I] with identity.
+    augmented_matrix = A.row_join(identity)
