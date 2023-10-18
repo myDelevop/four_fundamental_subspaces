@@ -21,3 +21,6 @@ if __name__ == '__main__':
 
     # Create the augmented matrix [A|I] with identity.
     augmented_matrix = A.row_join(identity)
+
+    # Computation of row reduced Echelon form
+    rref_augmented = augmented_matrix.rref()
