@@ -1,4 +1,4 @@
-from sympy.matrices import Matrix
+from sympy.matrices import Matrix, eye
 
 
 if __name__ == '__main__':
@@ -15,3 +15,6 @@ if __name__ == '__main__':
 
     # number of pivotal elements in Matrix A
     rank_a = A.rank()
+
+    # Create an identity matrix of size m
+    identity = eye(m)
