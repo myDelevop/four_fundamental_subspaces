@@ -1,4 +1,5 @@
 import numpy as np
+import random
 import time
 from sympy import pprint
 from sympy.matrices import Matrix, eye
@@ -115,12 +116,31 @@ def pretty_print(four_subspaces):
 
 
 if __name__ == '__main__':
-    # Define a static Matrix A
+    # Define a matrix A
+    """
+    A = Matrix([
+        [3, -2, 0, 1, 3, 1, 2, 1, 0],
+        [0, -2, 1, -1, -2, -1, -2, 2, 0],
+        [3, 1, 2, 0, -1, 3, -1, -1, 1],
+        [3, -1, -1, 2, 3, -1, 1, 0, 0],
+        [-2, 0, 2, -1, -1, 3, 3, 3, 2],
+        [-2, 2, -2, -2, 2, -2, -1, -2, -1],
+        [0, 0, 3, -2, 2, 3, 0, -2, -2]
+    ])
+
+
     A = Matrix([
         [1, 2, 2, 3],
         [2, 4, 1, 3],
         [3, 6, 1, 4]
     ])
+
+    """
+
+    # Create a random matrix of dimension mxn
+    m = random.randint(2, 6)
+    n = random.randint(2, 6)
+    A = Matrix(m, n, lambda i, j: random.randint(2, 4))
 
     computation = compute_subspaces(matrix=A)
     pretty_print(computation)
