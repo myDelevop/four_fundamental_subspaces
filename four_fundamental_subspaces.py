@@ -1,10 +1,10 @@
 import numpy as np
 import time
+from sympy import pprint
 from sympy.matrices import Matrix, eye
 
 
 def compute_subspaces(matrix):
-
     start_time_tot = time.time()
 
     # m is the number of rows of the matrix and n is the number of columns
@@ -91,8 +91,30 @@ def compute_subspaces(matrix):
 
     return matrix_computation
 
-if __name__ == '__main__':
 
+def pretty_print(four_subspaces):
+    print("\nOriginal matrix:\n")
+    pprint(four_subspaces["matrix"])
+
+    formatted_range_a = "\n" + "\n".join(
+        [str(list(row)) for row in four_subspaces['four_subspaces']['Range_A']['span']])
+    formatted_range_at = ",\n".join([f"{a}" for a in four_subspaces['four_subspaces']["Range_AT"]["span"]])
+    formatted_null_a = ",\n".join([str(list(row)) for row in four_subspaces['four_subspaces']['NULL_A']['span']])
+
+    print("\n\n")
+    print(f"Range of (A):\nSpan {{{formatted_range_a}\n}}")
+
+    print("\n\n")
+    print(f"Range of (AT):\nSpan {{\n{formatted_range_at}\n}}")
+
+    print("\n\n")
+    print(f"Null of (A):\nSpan {{\n{formatted_null_a}\n}}")
+
+    print("\n\n")
+    print(f"Null of (AT):\nSpan {{\n{four_subspaces['four_subspaces']['NULL_AT']['span']}\n}}")
+
+
+if __name__ == '__main__':
     # Define a static Matrix A
     A = Matrix([
         [1, 2, 2, 3],
@@ -101,7 +123,3 @@ if __name__ == '__main__':
     ])
 
     compute_subspaces(matrix=A)
-
-
-
-
