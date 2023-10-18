@@ -26,7 +26,14 @@ if __name__ == '__main__':
     # Computation of row reduced Echelon form
     rref_augmented = augmented_matrix.rref()
 
-    # Separate A from I
+    # Separate A and I from [A|I]
     a_rref = rref_augmented[0][:, :m + 1]
     id_rref = rref_augmented[0][:, m + 1:]
     pivots_tmp = np.array(rref_augmented[1])
+    """
+    Be careful, since it is the augmented matrix A, the indexes con return more
+    elements for the pivotal element (because there is a reduction of the Identity
+    Matrix. That's why we take the elements :rank_A (from 0 to rank_A)
+    """
+    # The indices where pivots appear in the matrix A
+    pivot_idx = np.array(rref_augmented[1][:rank_a])
