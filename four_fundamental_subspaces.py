@@ -12,3 +12,6 @@ if __name__ == '__main__':
 
     # m is the number of rows of the matrix and n is the number of columns
     (m, n) = A.shape
+
+    # number of pivotal elements in Matrix A
+    rank_a = A.rank()
