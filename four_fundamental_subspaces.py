@@ -1,3 +1,4 @@
+import numpy as np
 from sympy.matrices import Matrix, eye
 
 
@@ -24,3 +25,8 @@ if __name__ == '__main__':
 
     # Computation of row reduced Echelon form
     rref_augmented = augmented_matrix.rref()
+
+    # Separate A from I
+    a_rref = rref_augmented[0][:, :m + 1]
+    id_rref = rref_augmented[0][:, m + 1:]
+    pivots_tmp = np.array(rref_augmented[1])
