@@ -167,12 +167,17 @@ if __name__ == '__main__':
         [3, 6, 1, 4]
     ])
 
-    """
 
     # Create a random matrix of dimension mxn
     m = random.randint(2, 6)
     n = random.randint(2, 6)
     A = Matrix(m, n, lambda i, j: random.randint(2, 4))
+    """
+
+    # Create a random matrix of dimension mxn
+    m = random.randint(2, 4)
+    n = random.randint(2, 4)
+    A = Matrix(m, n, lambda i, j: random.randint(-3, 3))
 
     computation = compute_subspaces(matrix=A)
     pretty_print(computation)
