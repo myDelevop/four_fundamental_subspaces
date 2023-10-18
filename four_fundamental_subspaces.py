@@ -1,13 +1,20 @@
 import numpy as np
+import time
 from sympy.matrices import Matrix, eye
 
 
 def compute_subspaces(matrix):
+
+    start_time_tot = time.time()
+
     # m is the number of rows of the matrix and n is the number of columns
     (m, n) = matrix.shape
 
     # number of pivotal elements in Matrix A
+    start_time_rank = time.time()
     rank_a = matrix.rank()
+    end_time_rank = time.time()
+    computation_time_rank = round(end_time_rank - start_time_rank, 6)
 
     # Create an identity matrix of size m (num of rows)
     identity = eye(m)
@@ -16,7 +23,10 @@ def compute_subspaces(matrix):
     augmented_matrix = matrix.row_join(identity)
 
     # Computation of row reduced Echelon form
+    start_time_rref = time.time()
     rref_augmented = augmented_matrix.rref()
+    end_time_rref = time.time()
+    computation_time_rref = round(end_time_rref - start_time_rref, 6)
 
     # Separate A and I from [A|I]
     a_rref = rref_augmented[0][:, :m + 1]
@@ -72,6 +82,14 @@ def compute_subspaces(matrix):
     else:
         matrix_computation["four_subspaces"]["NULL_AT"]["span"] = [0] * m
 
+    end_time_tot = time.time()
+    computation_time_tot = round(end_time_tot - start_time_tot, 6)
+
+    matrix_computation["computation_time_rank"] = computation_time_rank
+    matrix_computation["computation_time_rref"] = computation_time_rref
+    matrix_computation["computation_time_tot"] = computation_time_tot
+
+    return matrix_computation
 
 if __name__ == '__main__':
 
