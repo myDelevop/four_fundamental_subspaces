@@ -1,6 +1,8 @@
 import numpy as np
 import random
 import time
+import datetime
+import pandas as pd
 from sympy import pprint
 from sympy.matrices import Matrix, eye
 
@@ -114,6 +116,36 @@ def pretty_print(four_subspaces):
     print("\n\n")
     print(f"Null of (AT):\nSpan {{\n{four_subspaces['four_subspaces']['NULL_AT']['span']}\n}}")
 
+def save_to_excel(matrix_computation):
+    computation_file = "computation.xlsx"
+    data_file = pd.read_excel(computation_file, sheet_name="FourFundamentalSubspaces")
+
+    data_to_append = {
+        "Date": datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
+        "Matrix": [str(matrix_computation["matrix"])],
+        "Shape": [str(matrix_computation["shape"])],
+        "NumRows": [matrix_computation["num_rows"]],
+        "NumCols": [matrix_computation["num_cols"]],
+        "ComputationTimeRank": [matrix_computation["computation_time_rank"]],
+        "ComputationTimeRREF": [matrix_computation["computation_time_rref"]],
+        "ComputationTimeTOT": [matrix_computation["computation_time_tot"]],
+        "Rank": [matrix_computation["rank"]],
+        "Identity": [str(matrix_computation["identity"])],
+        "AugmentedMatrix": [str(matrix_computation["augmented_matrix"])],
+        "RREF_Augmented": [str(matrix_computation["rref_augmented"][0])],
+        "A_RREF": [str(matrix_computation["a_rref"])],
+        "ID_RREF": [str(matrix_computation["id_rref"])],
+        "PivotIndex": [str(matrix_computation["pivot_idx"])],
+        "PivotsTmp": [str(matrix_computation["pivots_tmp"])],
+        "Range_A": [str(matrix_computation["four_subspaces"]["Range_A"]["span"])],
+        "Range_AT": [str(matrix_computation["four_subspaces"]["Range_AT"]["span"])],
+        "NULL_A": [str(matrix_computation["four_subspaces"]["NULL_A"]["span"])],
+        "NULL_AT": [str(matrix_computation["four_subspaces"]["NULL_AT"]["span"])],
+    }
+
+    df_to_append = pd.DataFrame(data_to_append)
+    df_updated = pd.concat([data_file, df_to_append], ignore_index=True)
+    df_updated.to_excel(computation_file, sheet_name="FourFundamentalSubspaces", index=False)
 
 if __name__ == '__main__':
     # Define a matrix A
@@ -144,3 +176,4 @@ if __name__ == '__main__':
 
     computation = compute_subspaces(matrix=A)
     pretty_print(computation)
+    save_to_excel(computation)
