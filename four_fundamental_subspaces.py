@@ -122,4 +122,5 @@ if __name__ == '__main__':
         [3, 6, 1, 4]
     ])
 
-    compute_subspaces(matrix=A)
+    computation = compute_subspaces(matrix=A)
+    pretty_print(computation)
