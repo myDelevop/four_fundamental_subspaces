@@ -2,26 +2,18 @@ import numpy as np
 from sympy.matrices import Matrix, eye
 
 
-if __name__ == '__main__':
-
-    # Define a static Matrix A
-    A = Matrix([
-        [1, 2, 2, 3],
-        [2, 4, 1, 3],
-        [3, 6, 1, 4]
-    ])
-
+def compute_subspaces(matrix):
     # m is the number of rows of the matrix and n is the number of columns
-    (m, n) = A.shape
+    (m, n) = matrix.shape
 
     # number of pivotal elements in Matrix A
-    rank_a = A.rank()
+    rank_a = matrix.rank()
 
     # Create an identity matrix of size m (num of rows)
     identity = eye(m)
 
     # Create the augmented matrix [A|I] with identity.
-    augmented_matrix = A.row_join(identity)
+    augmented_matrix = matrix.row_join(identity)
 
     # Computation of row reduced Echelon form
     rref_augmented = augmented_matrix.rref()
@@ -68,17 +60,30 @@ if __name__ == '__main__':
 
     for i in range(0, rank_a):
         idx = pivot_idx[i]
-        col_idx = A.col(idx)
+        col_idx = matrix.col(idx)
         row_idx = rref_augmented[0].row(i)[:n]  # is R but in sympy library
         matrix_computation["four_subspaces"]["Range_A"]["span"].append(col_idx)
         matrix_computation["four_subspaces"]["Range_AT"]["span"].append(row_idx)
-        matrix_computation["four_subspaces"]["NULL_A"]["span"] = A.nullspace()
+        matrix_computation["four_subspaces"]["NULL_A"]["span"] = matrix.nullspace()
 
     if rank_a <= m:
         np_matrix = np.array(id_rref)  # np_matrix is the numpy matrix of sympy
         matrix_computation["four_subspaces"]["NULL_AT"]["span"] = np_matrix[-(m - rank_a):].tolist()
     else:
         matrix_computation["four_subspaces"]["NULL_AT"]["span"] = [0] * m
+
+
+if __name__ == '__main__':
+
+    # Define a static Matrix A
+    A = Matrix([
+        [1, 2, 2, 3],
+        [2, 4, 1, 3],
+        [3, 6, 1, 4]
+    ])
+
+    compute_subspaces(matrix=A)
+
 
 
 
