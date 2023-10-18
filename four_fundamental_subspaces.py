@@ -61,3 +61,15 @@ if __name__ == '__main__':
             "NULL_AT": {"span": []},
         }
     }
+
+    ''''
+     FOUR FUNDAMENTAL SUBSPACES COMPUTATION
+    '''
+
+    for i in range(0, rank_a):
+        idx = pivot_idx[i]
+        col_idx = A.col(idx)
+        row_idx = rref_augmented[0].row(i)[:n]  # is R but in sympy library
+        matrix_computation["four_subspaces"]["Range_A"]["span"].append(col_idx)
+
+
