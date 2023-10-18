@@ -71,5 +71,7 @@ if __name__ == '__main__':
         col_idx = A.col(idx)
         row_idx = rref_augmented[0].row(i)[:n]  # is R but in sympy library
         matrix_computation["four_subspaces"]["Range_A"]["span"].append(col_idx)
+        matrix_computation["four_subspaces"]["Range_AT"]["span"].append(row_idx)
+
 
 
